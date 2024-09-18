@@ -1,0 +1,15 @@
+<html>
+  <head><title>Server Info</title></head>
+  <body>
+    <h1>Server Information</h1>
+    <p>Hostname: {{ ansible_hostname }}</p>
+    <p>FQDN: {{ ansible_fqdn }}</p>
+    <p>NIC IPv4: {{ ansible_default_ipv4.address }}</p>
+    <p>Mountpoints:</p>
+    <ul>
+    {% for mount in ansible_mounts %}
+      <li>{{ mount.mount }} ({{ mount.size_total | human_readable_size }})</li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>

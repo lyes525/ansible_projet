@@ -1,0 +1,2 @@
+html_file: "/var/www/html/index.html"
+nginx_conf: "/etc/nginx/sites-enabled/MACONF.conf"
