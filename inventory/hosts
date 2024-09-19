@@ -1,2 +1,10 @@
-[webservers]
+[debian]
 debiancli
+
+[fedora]
+fedoracli
+
+[cibles]
+debiancli
+fedoracli
+

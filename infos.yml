@@ -1,0 +1,6 @@
+---
+- name: Déployer Nginx et la page HTML
+  hosts: cibles
+  gather_facts: yes
+  roles:
+    - webserver

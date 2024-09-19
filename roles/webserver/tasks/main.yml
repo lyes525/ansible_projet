@@ -1,25 +1,41 @@
 ---
-- name: Install nginx
-  apt:
-    name: nginx
-    state: present
 
-- name: Create index.html
-  template:
-    src: index.html.j2
-    dest: "{{ html_file }}"
-    mode: '0644'
+    - name: Installer Nginx
+      become: yes
+      package:
+        name: nginx
+        state: present
+      when: package_system is defined
+      vars:
+        ansible_package_mgr: "{{ package_system }}"
 
-- name: Configure nginx
-  template:
-    src: nginx.conf.j2
-    dest: "{{ nginx_conf }}"
-    mode: '0644'
-  notify:
-    - restart nginx
+    - name: Creation de la page index.html
+      become: yes
+      template:
+        src: index.html.j2
+        dest: "{{ html_file }}"
+        mode: '0644'
+      notify:
+        - restart nginx
 
-- name: Ensure nginx is running
-  service:
-    name: nginx
-    state: started
-    enabled: true
+
+    - name: Configurer Nginx
+      become: yes
+      template:
+        src: MACONF.conf.j2
+        dest: "{{ nginx_conf_path }}"
+        mode: '0644'
+      notify:
+        - restart nginx
+    
+    - name: Collecter les faits des cibles
+      import_tasks: collect_facts.yml
+      vars:
+        target_hosts: "{{ cibles }}"
+
+    - name: S'assurer que Nginx est en cours d'exécution
+      become: yes
+      service:
+        name: nginx
+        state: restarted
+        enabled: true

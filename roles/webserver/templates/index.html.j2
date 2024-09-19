@@ -1,15 +1,22 @@
-<html>
-  <head><title>Informations sur le serveur</title></head>
-  <body>
-    <h1>Informations sur le serveur</h1>
-    <p>Hostname: {{ ansible_hostname }}</p>
-    <p>FQDN : {{ ansible_fqdn }}</p>
-    <p>IPv4 NIC : {{ ansible_default_ipv4.address }}</p>
-    <p>Points de montage :</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information des Cibles</title>
+</head>
+<body>
+    <h1>Informations des Cibles</h1>
+    {% for host in groups['cibles'] %}
+    <h2>Host: {{ hostvars[host].ansible_hostname }}</h2>
+    <p>FQDN: {{ hostvars[host].ansible_fqdn }}</p>
+    <p>NIC IPv4: {{ hostvars[host].ansible_default_ipv4.address }}</p>
+    <p>Mountpoints:</p>
     <ul>
-    {% for mount in ansible_mounts %}
-      <li>{{ mount.mount }} ({{ mount.size_total | int / 1024 / 1024 }} Mo)</li>
-    {% endfor %}
+        {% for mount in hostvars[host].ansible_mounts %}
+        <li>{{ mount.mount }} ({{ mount.fstype }})</li>
+        {% endfor %}
     </ul>
-  </body>
+    {% endfor %}
+</body>
 </html>

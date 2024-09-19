@@ -1,2 +1,3 @@
+---
 ansible_host: 192.168.56.200
-mariadb_root_password: azerty
+# mariadb_root_password: azerty

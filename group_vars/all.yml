@@ -1,0 +1,2 @@
+nginx_service_name: "nginx"
+web_root: "/var/www/html/index.html"

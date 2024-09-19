@@ -1,2 +1,4 @@
+---
 html_file: "/var/www/html/index.html"
-nginx_conf: "/etc/nginx/sites-enabled/MACONF.conf"
+nginx_conf-debian: "/etc/nginx/sites-enabled/MACONF.conf"
+nginx_conf-fedora: "/etc/nginx/conf.d/MACONF.conf"
